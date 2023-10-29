@@ -1,11 +1,12 @@
 import unittest
 import lab3_flask_app as prog
 
-class TestMyProgram(unittest.TestCase):
+class FlaskAppTests(unittest.TestCase):
 
     # basic setup
     def setUp(self):
-        self.prog = prog
+        # self.prog = prog
+        self.prog = prog.app.test_client()
 
     # test for checking format 
     def test_check_format(self):
