@@ -33,11 +33,7 @@ pipeline {
             steps{
                 sh "apk add --update python3 py-pip"
                 sh "pip install Flask"
-                // sh 'pip install xmlrunner'
-
-                sh "docker build -t ${DOCKER_IMAGE} -f Dockerfile ."
-                sh "docker push ${DOCKER_IMAGE}"
-
+                sh  "pip install xmlrunner"
                 sh "python3 ${FLASK_APP}"
                 echo "Test section compleated."
             }
@@ -48,8 +44,8 @@ pipeline {
                 script {
                     // Build Docker image
                     sh "docker build -t ${DOCKER_IMAGE} -f Dockerfile ."
-                    // Push Docker image to Docker Hub
 
+                    // Push Docker image to Docker Hub
                     // withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                     //     sh "docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}"
                     // }
