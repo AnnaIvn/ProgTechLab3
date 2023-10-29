@@ -34,29 +34,30 @@ pipeline {
                 sh "apk add --update python3 py-pip"
                 sh "pip install Flask"
                 // sh 'pip install xmlrunner'
-                sh "python3 ${FLASK_APP}"
-                echo "Test section compleated."
 
                 sh "docker build -t ${DOCKER_IMAGE} -f Dockerfile ."
                 sh "docker push ${DOCKER_IMAGE}"
+
+                sh "python3 ${FLASK_APP}"
+                echo "Test section compleated."
             }
         }
 
-        // stage('Build and Push Docker Image') {
-        //     steps {
-        //         script {
-        //             // Build Docker image
-        //             sh "docker build -t ${DOCKER_IMAGE} -f Dockerfile ."
-        //             // Push Docker image to Docker Hub
+        stage('Build and Push Docker Image') {
+            steps {
+                script {
+                    // Build Docker image
+                    sh "docker build -t ${DOCKER_IMAGE} -f Dockerfile ."
+                    // Push Docker image to Docker Hub
 
-        //             // withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-        //             //     sh "docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}"
-        //             // }
+                    // withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                    //     sh "docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}"
+                    // }
 
-        //             sh "docker push ${DOCKER_IMAGE}"
-        //         }
-        //     }
-        // }
+                    sh "docker push ${DOCKER_IMAGE}"
+                }
+            }
+        }
 
         stage('Deploy') {
             steps {
@@ -74,16 +75,17 @@ pipeline {
     }
 
 
-
-    post {
-        success {
-            // This block will be executed if the pipeline is successful
-            echo 'Flask app successfully deployed!'
-        }
-
-        failure {
-            // This block will be executed if the pipeline fails
-            echo 'Pipeline failed. Check the logs for details.'
-        }
+  post { 
+        always { 
+            echo 'The pipeline completed'
+            junit allowEmptyResults: true, testResults:'**/test_reports/*.xml'
+        } 
+        success {                    
+            echo "Flask Application Up and running!!"
+        } 
+        failure { 
+            echo 'Build stage failed'
+            error('Stopping early…') 
+        } 
     }
 }
