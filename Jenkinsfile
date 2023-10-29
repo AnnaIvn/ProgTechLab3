@@ -40,21 +40,21 @@ pipeline {
         }
     }
 
-    stage('Deploy') {
-        steps {
-            script {
-                // Build Docker image
-                sh "docker build -t ${DOCKER_IMAGE} -f Dockerfile ."
-                // Push Docker image to Docker Hub
+    // stage('Deploy') {
+    //     steps {
+    //         script {
+    //             // Build Docker image
+    //             sh "docker build -t ${DOCKER_IMAGE} -f Dockerfile ."
+    //             // Push Docker image to Docker Hub
                 
-                // withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                //     sh "docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}"
-                // }
+    //             // withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+    //             //     sh "docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}"
+    //             // }
                 
-                sh "docker push ${DOCKER_IMAGE}"
-            }
-        }
-    }
+    //             sh "docker push ${DOCKER_IMAGE}"
+    //         }
+    //     }
+    // }
 
     // stage('Deploy') {
     //     steps {
