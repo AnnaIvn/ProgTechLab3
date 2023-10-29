@@ -34,7 +34,7 @@ pipeline {
                 sh "apk add --update python3 py-pip"
                 sh "pip install Flask"
                 sh  "pip install xmlrunner"
-                sh "python3 ${FLASK_APP}"
+                sh "python3 my_testing.py"
                 echo "Test section compleated."
             }
         }
