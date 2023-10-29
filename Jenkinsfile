@@ -1,7 +1,7 @@
 pipeline {
     options {timestamps()}
 
-    agent none
+    agent any
     environment {
         DOCKER_IMAGE = 'annaiiv/lab3_flask_app'
         FLASK_APP = 'lab3_flask_app.py'
@@ -11,7 +11,6 @@ pipeline {
 
     stages {
         stage('Check scm') {
-            agent any
             steps {
                 // Checkout the code from your version control system (e.g., Git)
                 checkout scm
@@ -42,7 +41,6 @@ pipeline {
         }
 
         stage('Build and Push Docker Image') {
-            agent any
             steps {
                 script {
                     // Build Docker image
