@@ -40,7 +40,7 @@ pipeline {
         }
     }
 
-    stage('Build and Push Docker Image') {
+    stage('Deploy') {
         steps {
             script {
                 // Build Docker image
@@ -56,19 +56,19 @@ pipeline {
         }
     }
 
-    stage('Deploy') {
-        steps {
-            script {
-                // Navigate to the directory containing Jenkinsfile
-                dir('path/to/your/Jenkinsfile') {
-                    // Deactivate virtual environment
-                    sh "deactivate"
-                    // Replace with your deployment steps
-                    sh "echo 'Deploying Flask app...'"
-                }
-            }
-        }
-    }
+    // stage('Deploy') {
+    //     steps {
+    //         script {
+    //             // Navigate to the directory containing Jenkinsfile
+    //             dir('path/to/your/Jenkinsfile') {
+    //                 // Deactivate virtual environment
+    //                 sh "deactivate"
+    //                 // Replace with your deployment steps
+    //                 sh "echo 'Deploying Flask app...'"
+    //             }
+    //         }
+    //     }
+    // }
 
     post {
         success {
