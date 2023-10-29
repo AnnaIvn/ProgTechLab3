@@ -7,7 +7,7 @@ app = Flask(__name__)
 # def some_output():
 #     return "My dockerised app using flask"
 
-# @app.route('/')
+@app.route('/')
 # def index():
 #     return render_template('index.html')
 
