@@ -5,6 +5,8 @@ pipeline {
     environment {
         DOCKER_IMAGE = 'annaiiv/lab3_flask_app'
         FLASK_APP = 'lab3_flask_app.py'
+
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub')
     }
 
     stages {
@@ -40,16 +42,16 @@ pipeline {
         }
 
         stage('Build and Push Docker Image') {
+            agent any
             steps {
                 script {
                     // Build Docker image
                     sh "docker build -t ${DOCKER_IMAGE} -f Dockerfile ."
-
                     // Push Docker image to Docker Hub
                     // withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                     //     sh "docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}"
                     // }
-
+                    sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
                     sh "docker push ${DOCKER_IMAGE}"
                 }
             }
@@ -75,6 +77,7 @@ pipeline {
         always { 
             echo 'The pipeline completed'
             junit allowEmptyResults: true, testResults:'**/test_reports/*.xml'
+            sh 'docker logout'
         } 
         success {                    
             echo "Flask Application Up and running!!"
