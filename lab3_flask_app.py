@@ -5,26 +5,27 @@ app = Flask(__name__)
 
 # def some_output():
 #     return "My dockerised app using flask"
-@app.route('/')
-def index():
-    return render_template('index.html')
 
-@app.route('/process_input', methods=['POST'])
-def process_input():
-    input_data = request.form['input_data']
-    result = process_data(input_data)
-    return render_template('result.html', result=result)
+# @app.route('/')
+# def index():
+#     return render_template('index.html')
 
-def process_data(arg):
-    try:
-        check_format(arg)
-        arg = two_dot_formating(arg)
-        arg = space_formating(arg)
-        arg = distrib_by_age(arg)
-        arg = exception(arg)
-        return arg
-    except Exception as e:
-        return str(e)
+# @app.route('/process_input', methods=['POST'])
+# def process_input():
+#     input_data = request.form['input_data']
+#     result = process_data(input_data)
+#     return render_template('result.html', result=result)
+
+# def process_data(arg):
+#     try:
+#         check_format(arg)
+#         arg = two_dot_formating(arg)
+#         arg = space_formating(arg)
+#         arg = distrib_by_age(arg)
+#         arg = exception(arg)
+#         return arg
+#     except Exception as e:
+#         return str(e)
 
 # @app.route('/check_format/{arg}')
 def check_format(arg):
