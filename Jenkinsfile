@@ -58,16 +58,12 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    // Navigate to the directory containing Jenkinsfile
-                    dir('Jenkinsfile') {
-                        // Deactivate virtual environment
-                        sh "deactivate"
-                        // Replace with your deployment steps
-                        sh "echo 'Deploying Flask app...'"
-                    }
+                    sh "echo 'Deploying Flask app...'"
                 }
+                
             }
         }
+        
     }
 
 
