@@ -59,7 +59,7 @@ pipeline {
             steps {
                 script {
                     sh "echo 'Deploying Flask app...'"
-                    sh "echo 'ADDED SOME TEXT'"
+                    // sh "echo 'ADDED SOME TEXT'"
                 }
                 
             }
